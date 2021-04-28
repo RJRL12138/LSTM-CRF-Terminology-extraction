@@ -5,11 +5,20 @@ import os
 import dataFormat
 import filterData as fd
 import numpy as np
-
+import keras
+import wget
+import zipfile
 
 class Config():
     def __init__(self, load=True):
         if load:
+        	url = 'http://nlp.stanford.edu/data/glove.6B.zip'
+        	filename = wget.download(url)
+        	if not os.path.exists('glove.6B'):
+        		os.mkdir('glove.6B')
+
+        	with zipfile.ZipFile(filename,'r') as zf:
+        		zf.extractall('glove.6B')
             self.load()
 
     def load(self):
